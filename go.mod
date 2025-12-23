@@ -13,5 +13,6 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	golang.org/x/image v0.25.0 // indirect
 	golang.org/x/text v0.23.0 // indirect
+	gonum.org/v1/gonum v0.16.0 // indirect
 	gonum.org/v1/plot v0.16.0 // indirect
 )

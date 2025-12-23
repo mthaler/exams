@@ -4,6 +4,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"log"
+	"math"
 	"os"
 	"strconv"
 
@@ -95,4 +96,17 @@ func estimateB0B1(x []float64, y []float64) (float64, float64) {
 	b0 := meanY - b1*meanX    // b0 or interceptreturn b0, b1
 
 	return b0, b1
+}
+
+func rmseCost(y_predicted []float64, y_test []float64) float64 {
+	sz := len(y_test)
+	var rmse float64 = 0.0
+
+	for i := 0; i < len(y_test); i++ {
+		rmse = rmse + math.Abs(y_test[i]-y_predicted[i])*math.Abs(y_test[i]-y_predicted[i])
+	}
+	rmse = rmse / float64(sz)
+	rmse = math.Sqrt(rmse)
+
+	return rmse
 }

@@ -93,4 +93,6 @@ func estimateB0B1(x []float64, y []float64) (float64, float64) {
 	meanY = stat.Mean(y, nil) //mean pf ysumXY, sumXX = sumXYandXX(x, y, meanX, meanY)// regression coefficients
 	b1 := sumXY / sumXX       // b1 or slope
 	b0 := meanY - b1*meanX    // b0 or interceptreturn b0, b1
+
+	return b0, b1
 }

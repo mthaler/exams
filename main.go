@@ -19,6 +19,7 @@ func main() {
 	}
 	defer f.Close()
 	exams := csv.NewReader(f)
+	//exams.FieldsPerRecord = 2
 	records, err := exams.ReadAll()
 	if err != nil {
 		log.Fatal(err)
@@ -27,7 +28,7 @@ func main() {
 	records = records[1:]
 	columnsValues := map[int]plotter.Values{}
 	for i, record := range records {
-		for c := 2; c < exams.FieldsPerRecord; c++ {
+		for c := 0; c < exams.FieldsPerRecord; c++ {
 			if _, found := columnsValues[c]; !found {
 				columnsValues[c] = make(plotter.Values, len(records))
 			}

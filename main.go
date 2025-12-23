@@ -2,15 +2,18 @@ package main
 
 import (
 	"encoding/csv"
+	"fmt"
 	"log"
 	"os"
 	"strconv"
 
+	"gonum.org/v1/plot"
 	"gonum.org/v1/plot/plotter"
+	"gonum.org/v1/plot/vg"
 )
 
 func main() {
-	f, err := os.Open("./datasets/kc_house_data.csv")
+	f, err := os.Open("./student_scores.csv")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,6 +37,28 @@ func main() {
 				log.Fatal(err)
 			}
 			columnsValues[c][i] = floatVal
+		}
+	}
+	// once we have all the data, we draw each graph
+	for c, values := range columnsValues {
+		// create a new plot
+		p := plot.New()
+		p.Title.Text = fmt.Sprintf("Histogram of %s", records[0][c])
+		// create a new normalized histogram
+		// and add it to the plot
+		h, err := plotter.NewHist(values, 16)
+		if err != nil {
+			log.Fatal(err)
+		}
+		h.Normalize(1)
+		p.Add(h)
+		// save the plot to a PNG file.
+		if err := p.Save(
+			10*vg.Centimeter,
+			10*vg.Centimeter,
+			"student_scores_hist.png",
+		); err != nil {
+			log.Fatal(err)
 		}
 	}
 }
